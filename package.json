@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "ts-transformer-strip-const-enums",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A TypeScript custom transformer which strips const enums if preserveConstEnums is enabled and const enum isn't exported",
   "main": "dist/transformer.js",
   "repository": {
