@@ -110,7 +110,7 @@ function createTransformerFactory(program: ts.Program, options?: Partial<RenameO
 			}
 
 			const isExportedFromSourceFile = getExportsForSourceFile(node.getSourceFile()).includes(enumSymbol);
-			const isExportedFromEntries = fullOptions.entrySourceFiles.length !== 0 && allExports.has(enumSymbol);
+			const isExportedFromEntries = fullOptions.entrySourceFiles.length === 0 || allExports.has(enumSymbol);
 			if (!isExportedFromSourceFile || !isExportedFromEntries) {
 				return ts.createEmptyStatement();
 			}
