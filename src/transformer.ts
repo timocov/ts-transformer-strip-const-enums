@@ -1,6 +1,6 @@
 import * as ts from 'typescript';
 
-export interface RenameOptions {
+export interface Options {
 	/**
 	 * An array of entry source files which will used to detect exported const enums.
 	 * Basically it should be entry point(s) of the library/project.
@@ -9,17 +9,17 @@ export interface RenameOptions {
 	entrySourceFiles: string[];
 }
 
-const defaultOptions: RenameOptions = {
+const defaultOptions: Options = {
 	entrySourceFiles: [],
 };
 
 // tslint:disable-next-line:no-default-export
-export default function stripConstEnumsTransformer(program: ts.Program, config?: Partial<RenameOptions>): ts.TransformerFactory<ts.SourceFile> {
+export default function stripConstEnumsTransformer(program: ts.Program, config?: Partial<Options>): ts.TransformerFactory<ts.SourceFile> {
 	return createTransformerFactory(program, config);
 }
 
-function createTransformerFactory(program: ts.Program, options?: Partial<RenameOptions>): ts.TransformerFactory<ts.SourceFile> {
-	const fullOptions: RenameOptions = { ...defaultOptions, ...options };
+function createTransformerFactory(program: ts.Program, options?: Partial<Options>): ts.TransformerFactory<ts.SourceFile> {
+	const fullOptions: Options = { ...defaultOptions, ...options };
 	const typeChecker = program.getTypeChecker();
 	const compilerOptions = program.getCompilerOptions();
 
