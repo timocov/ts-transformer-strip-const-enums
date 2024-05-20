@@ -69,8 +69,8 @@ function createTransformerFactory(program: ts.Program, options?: Partial<Options
 		return result.map((symbol: ts.Symbol) => getActualSymbol(symbol));
 	}
 
-	function hasModifier(node: ts.Node, modifier: ts.SyntaxKind): boolean {
-		return node.modifiers !== undefined && node.modifiers.some((mod: ts.Modifier) => mod.kind === modifier);
+	function hasModifier(node: ts.EnumDeclaration, modifier: ts.SyntaxKind): boolean {
+		return node.modifiers !== undefined && node.modifiers.some((mod: ts.ModifierLike) => mod.kind === modifier);
 	}
 
 	if (!compilerOptions.preserveConstEnums) {
@@ -112,7 +112,7 @@ function createTransformerFactory(program: ts.Program, options?: Partial<Options
 			const isExportedFromSourceFile = getExportsForSourceFile(node.getSourceFile()).includes(enumSymbol);
 			const isExportedFromEntries = fullOptions.entrySourceFiles.length === 0 || allExports.has(enumSymbol);
 			if (!isExportedFromSourceFile || !isExportedFromEntries) {
-				return ts.createEmptyStatement();
+				return ts.factory.createEmptyStatement();
 			}
 
 			return node;
